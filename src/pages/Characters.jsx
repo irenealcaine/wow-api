@@ -1,6 +1,7 @@
-import CharacterDetails from '../components/CharacterDetails'
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { Link } from 'react-router-dom'
+import './Characters.css'
 
 function Characters() {
   const [characters, setCharacters] = useState([])
@@ -24,7 +25,17 @@ function Characters() {
 
       <section className="characters-grid" aria-label="Listado de personajes">
         {characters.map((character) => (
-          <CharacterDetails key={character.id} {...character} />
+          <Link to={`/characters/${character.id}`} key={character.id} className="character-preview">
+            <header className="character-preview__header">
+              <h2>{character.name}</h2>
+              <span>Nivel {character.level}</span>
+            </header>
+
+            <p className="character-preview__meta">{character.className} {character.active_spec}</p>
+            <p className="character-preview__meta">{character.race} - {character.faction}</p>
+            <p className="character-preview__meta">{character.realm}</p>
+            <p className="character-preview__ilvl">Item Level {character.average_item_level}</p>
+          </Link>
         ))}
       </section>
     </main>

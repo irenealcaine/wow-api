@@ -1,0 +1,24 @@
+.character-details-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.character-details-page__back-link {
+  width: fit-content;
+  text-decoration: none;
+  color: #265ab9;
+  font-weight: 700;
+}
+
+.character-details-page__back-link:hover {
+  text-decoration: underline;
+}
+
+.character-details-page__status {
+  margin: 0;
+  color: #41516b;
+}
+
+.character-details-page__status--error {
+  color: #b42318;
+}

@@ -1,0 +1,100 @@
+.character-card {
+  background: #ffffff;
+  border: 1px solid #dce3ef;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 10px 24px rgba(16, 33, 61, 0.08);
+}
+
+.character-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.character-card__header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #0c1a30;
+}
+
+.character-card__level {
+  font-size: 0.9rem;
+  color: #4e6487;
+}
+
+.character-card__stats {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+}
+
+.character-card__stats div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.character-card__stats dt {
+  color: #4e6487;
+}
+
+.character-card__stats dd {
+  margin: 0;
+  color: #16294a;
+  font-weight: 600;
+}
+
+.character-card__professions {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #e3eaf5;
+}
+
+.character-card__professions h3 {
+  margin: 0 0 0.7rem;
+  color: #10213d;
+  font-size: 1rem;
+}
+
+.character-card__profession-group + .character-card__profession-group {
+  margin-top: 0.8rem;
+}
+
+.character-card__profession-group h4 {
+  margin: 0 0 0.4rem;
+  color: #41516b;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.character-card__profession-group > ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.character-card__profession-group p {
+  margin: 0;
+  font-weight: 600;
+  color: #16294a;
+}
+
+.character-card__tiers {
+  margin: 0.35rem 0 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.character-card__tiers li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #4e6487;
+}
