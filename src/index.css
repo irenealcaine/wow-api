@@ -6,16 +6,40 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, #f3f7ff 0%, #ecf2ff 100%);
+
+  --bg-main: #07091280;
+  --bg-card: #0e1020;
+  --bg-card-hover: #141728;
+  --border: #1c2040;
+  --border-active: #2a2f5a;
+  --accent-blue: #3a86ff;
+  --accent-pink: #f72585;
+  --accent-blue-soft: #6ea8fe;
+  --accent-pink-soft: #fa6bbd;
+  --text-primary: #e4eaf8;
+  --text-secondary: #7a8db5;
+  --text-muted: #4a5a80;
+
+  color-scheme: dark;
+  background: #07091280;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  background: #070912;
+}
+
 body {
   margin: 0;
   min-width: 320px;
+  background: radial-gradient(ellipse 80% 60% at 20% -10%, rgba(58, 134, 255, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 80% 110%, rgba(247, 37, 133, 0.12) 0%, transparent 60%),
+              #070912;
+  min-height: 100vh;
+  color: var(--text-primary);
 }
 
 #root {

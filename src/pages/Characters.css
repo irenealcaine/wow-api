@@ -6,17 +6,27 @@
 .characters-page h1 {
   margin: 0;
   font-size: 2.2rem;
-  color: #10213d;
+  color: var(--text-primary);
+  background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .characters-page__subtitle {
   margin: 0;
-  color: #41516b;
+  color: var(--text-secondary);
+}
+
+.characters-page__empty {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
 .characters-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
@@ -24,18 +34,29 @@
   display: grid;
   gap: 0.5rem;
   text-decoration: none;
-  background: #ffffff;
-  border: 1px solid #dce3ef;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1rem;
-  box-shadow: 0 10px 24px rgba(16, 33, 61, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.character-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(58, 134, 255, 0.04) 0%, rgba(247, 37, 133, 0.04) 100%);
+  pointer-events: none;
 }
 
 .character-preview:hover {
-  transform: translateY(-2px);
-  border-color: #b9c8e4;
-  box-shadow: 0 14px 28px rgba(16, 33, 61, 0.14);
+  transform: translateY(-3px);
+  border-color: var(--accent-blue);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(58, 134, 255, 0.15);
 }
 
 .character-preview__header {
@@ -47,25 +68,35 @@
 
 .character-preview__header h2 {
   margin: 0;
-  color: #0c1a30;
+  color: var(--text-primary);
   font-size: 1.1rem;
 }
 
 .character-preview__header span {
-  color: #4e6487;
+  color: var(--accent-blue-soft);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
+  background: rgba(58, 134, 255, 0.12);
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(58, 134, 255, 0.2);
 }
 
 .character-preview__meta {
   margin: 0;
-  color: #3d4f6e;
+  color: var(--text-secondary);
 }
 
 .character-preview__ilvl {
   margin: 0.2rem 0 0;
-  color: #16294a;
+  color: var(--accent-pink-soft);
   font-weight: 700;
+}
+
+.character-preview__professions {
+  margin: 0.2rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
 
 @media (max-width: 640px) {
