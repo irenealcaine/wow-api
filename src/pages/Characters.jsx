@@ -5,15 +5,30 @@ import CharacterFilters from '../components/CharacterFilters'
 import './Characters.css'
 
 const EMPTY = ''
+const EXPANSION_KEYWORD = 'midnight'
+const DEFAULT_SORT_LEVEL = 'desc'
+
+const hasExpansionKeywordTier = (profession) =>
+  profession.tiers?.some((tier) => tier.expansion?.toLowerCase().includes(EXPANSION_KEYWORD)) ?? false
+
+const getProfessionNamesWithExpansionKeyword = (character) => {
+  const primaries = character.professions?.primaries ?? []
+  const secondaries = character.professions?.secondaries ?? []
+
+  return [...primaries, ...secondaries]
+    .filter(hasExpansionKeywordTier)
+    .map((profession) => profession.name)
+}
 
 function Characters() {
   const [characters, setCharacters] = useState([])
+  const [isFiltersVisible, setIsFiltersVisible] = useState(false)
   const [filters, setFilters] = useState({
     name: EMPTY,
     className: EMPTY,
     race: EMPTY,
     profession: EMPTY,
-    sortLevel: EMPTY,
+    sortLevel: DEFAULT_SORT_LEVEL,
     sortIlvl: EMPTY,
   })
 
@@ -37,9 +52,7 @@ function Characters() {
     characters.forEach((c) => {
       if (c.className) classes.add(c.className)
       if (c.race) races.add(c.race)
-      const primaries = c.professions?.primaries ?? []
-      const secondaries = c.professions?.secondaries ?? []
-      ;[...primaries, ...secondaries].forEach((p) => professions.add(p.name))
+      getProfessionNamesWithExpansionKeyword(c).forEach((name) => professions.add(name))
     })
 
     return {
@@ -55,9 +68,7 @@ function Characters() {
       if (filters.className && c.className !== filters.className) return false
       if (filters.race && c.race !== filters.race) return false
       if (filters.profession) {
-        const primaries = c.professions?.primaries ?? []
-        const secondaries = c.professions?.secondaries ?? []
-        const names = [...primaries, ...secondaries].map((p) => p.name)
+        const names = getProfessionNamesWithExpansionKeyword(c)
         if (!names.includes(filters.profession)) return false
       }
       return true
@@ -84,7 +95,7 @@ function Characters() {
 
   const resetFilters = () => setFilters({
     name: EMPTY, className: EMPTY, race: EMPTY,
-    profession: EMPTY, sortLevel: EMPTY, sortIlvl: EMPTY,
+    profession: EMPTY, sortLevel: DEFAULT_SORT_LEVEL, sortIlvl: EMPTY,
   })
 
   const hasActiveFilters = Object.values(filters).some((v) => v !== EMPTY)
@@ -94,35 +105,55 @@ function Characters() {
       <h1>Characters</h1>
       <p className="characters-page__subtitle">Tus personajes destacados de Azeroth.</p>
 
-      <CharacterFilters
-        filters={filters}
-        options={options}
-        onChange={set}
-        onReset={resetFilters}
-        hasActiveFilters={hasActiveFilters}
-      />
+      <button
+        type="button"
+        className="characters-page__filters-toggle"
+        onClick={() => setIsFiltersVisible((prev) => !prev)}
+        aria-expanded={isFiltersVisible}
+        aria-controls="characters-filters-panel"
+      >
+        {isFiltersVisible ? 'Ocultar filtros' : 'Mostrar filtros'}
+      </button>
+
+      {isFiltersVisible && (
+        <div id="characters-filters-panel">
+          <CharacterFilters
+            filters={filters}
+            options={options}
+            onChange={set}
+            onReset={resetFilters}
+            hasActiveFilters={hasActiveFilters}
+          />
+        </div>
+      )}
 
       <section className="characters-grid" aria-label="Listado de personajes">
         {filtered.length === 0 && (
           <p className="characters-page__empty">No hay personajes que coincidan con los filtros.</p>
         )}
         {filtered.map((character) => {
-          const primaries = character.professions?.primaries ?? []
-          const secondaries = character.professions?.secondaries ?? []
-          const professionNames = [...primaries, ...secondaries].map((p) => p.name)
+          const professionNames = getProfessionNamesWithExpansionKeyword(character)
 
           return (
             <Link to={`/characters/${character.id}`} key={character.id} className="character-preview">
               <header className="character-preview__header">
                 <h2>{character.name}</h2>
-                <span>Nivel {character.level}</span>
+                <div className="character-preview__stats-badges">
+                  <span className="character-preview__badge character-preview__badge--level">Nivel {character.level}</span>
+                  <span className="character-preview__badge character-preview__badge--ilvl">Item Level {character.average_item_level}</span>
+                </div>
               </header>
 
               <p className="character-preview__meta">{character.className} · {character.race}</p>
-              <p className="character-preview__ilvl">Item Level {character.average_item_level}</p>
 
               {professionNames.length > 0 && (
-                <p className="character-preview__professions">{professionNames.join(', ')}</p>
+                <ul className="character-preview__professions" aria-label="Profesiones">
+                  {professionNames.map((professionName) => (
+                    <li key={`${character.id}-${professionName}`} className="character-preview__profession-tag">
+                      {professionName}
+                    </li>
+                  ))}
+                </ul>
               )}
             </Link>
           )

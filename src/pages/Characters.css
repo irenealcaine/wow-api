@@ -18,6 +18,25 @@
   color: var(--text-secondary);
 }
 
+.characters-page__filters-toggle {
+  width: fit-content;
+  padding: 0.45rem 0.95rem;
+  background: rgba(58, 134, 255, 0.12);
+  border: 1px solid rgba(58, 134, 255, 0.28);
+  border-radius: 999px;
+  color: var(--accent-blue-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.characters-page__filters-toggle:hover {
+  background: rgba(58, 134, 255, 0.2);
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+}
+
 .characters-page__empty {
   margin: 0;
   color: var(--text-muted);
@@ -63,7 +82,7 @@
   display: flex;
   justify-content: space-between;
   gap: 0.65rem;
-  align-items: baseline;
+  align-items: center;
 }
 
 .character-preview__header h2 {
@@ -72,14 +91,27 @@
   font-size: 1.1rem;
 }
 
-.character-preview__header span {
+.character-preview__stats-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.character-preview__badge {
   color: var(--accent-blue-soft);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
   background: rgba(58, 134, 255, 0.12);
-  padding: 0.1rem 0.5rem;
+  padding: 0.12rem 0.5rem;
   border-radius: 999px;
   border: 1px solid rgba(58, 134, 255, 0.2);
+}
+
+.character-preview__badge--ilvl {
+  color: var(--accent-pink-soft);
+  background: rgba(247, 37, 133, 0.12);
+  border-color: rgba(247, 37, 133, 0.2);
 }
 
 .character-preview__meta {
@@ -87,16 +119,24 @@
   color: var(--text-secondary);
 }
 
-.character-preview__ilvl {
-  margin: 0.2rem 0 0;
-  color: var(--accent-pink-soft);
-  font-weight: 700;
+.character-preview__professions {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
-.character-preview__professions {
-  margin: 0.2rem 0 0;
-  color: var(--text-muted);
-  font-size: 0.85rem;
+.character-preview__profession-tag {
+  color: var(--text-primary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(58, 134, 255, 0.32);
+  background: rgba(58, 134, 255, 0.12);
 }
 
 @media (max-width: 640px) {

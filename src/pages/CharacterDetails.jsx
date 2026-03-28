@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProgressBar from '../components/ProgressBar'
@@ -36,17 +35,25 @@ function CharacterDetailsPage() {
   }, [id])
 
   const renderProfessionGroup = (title, list) => {
-    if (!list.length) return null
+    const professionsWithTiers = list
+      .map((profession) => ({
+        ...profession,
+        tiers:
+          profession.tiers?.filter((tier) => tier.expansion?.toLowerCase().includes('midnight')) ?? [],
+      }))
+      .filter((profession) => profession.tiers.length > 0)
+
+    if (!professionsWithTiers.length) return null
 
     return (
       <div className="character-card__profession-group">
         <h4>{title}</h4>
         <ul>
-          {list.map((profession) => (
+          {professionsWithTiers.map((profession) => (
             <li key={`${title}-${profession.name}`}>
               <p>{profession.name}</p>
               <ul className="character-card__tiers">
-                {profession.tiers?.map((tier) => (
+                {profession.tiers?.slice(-1).map((tier) => (
                   <li key={`${profession.name}-${tier.expansion}`}>
                     <ProgressBar value={tier.skill} max={tier.max} label={`${tier.expansion}`} />
                   </li>
@@ -61,11 +68,45 @@ function CharacterDetailsPage() {
 
   const primaryProfessions = character?.professions?.primaries ?? []
   const secondaryProfessions = character?.professions?.secondaries ?? []
+  const equipment = Array.isArray(character?.equipment) ? character.equipment : []
+  const averageItemLevel = Number(character?.average_item_level)
+  const visibleEquipment = equipment.filter((slot) => slot.name?.toLowerCase() !== 'tabard')
+  const equipmentByName = Object.fromEntries(
+    visibleEquipment.map((slot) => [slot.name?.toLowerCase(), slot]),
+  )
+  const equipmentValues = visibleEquipment
+    .map((slot) => Number(slot.value))
+    .filter((value) => Number.isFinite(value))
+  const lowestEquipmentValue = equipmentValues.length > 0 ? Math.min(...equipmentValues) : null
+  const equipmentColumns = [
+    ['Head', 'Shoulders', 'Chest', 'Waist', 'Legs', 'Feet', 'Wrist', 'Hands'],
+    ['Neck', 'Ring 1', 'Ring 2', 'Trinket 1', 'Trinket 2'],
+    ['Main Hand', 'Off Hand'],
+  ]
+
+  const getEquipmentValueClassName = (value) => {
+    const numericValue = Number(value)
+    if (!Number.isFinite(numericValue)) return 'character-card__equipment-value'
+
+    if (lowestEquipmentValue !== null && numericValue === lowestEquipmentValue) {
+      return 'character-card__equipment-value character-card__equipment-value--lowest'
+    }
+
+    if (Number.isFinite(averageItemLevel) && numericValue > averageItemLevel) {
+      return 'character-card__equipment-value character-card__equipment-value--above'
+    }
+
+    if (Number.isFinite(averageItemLevel) && numericValue < averageItemLevel) {
+      return 'character-card__equipment-value character-card__equipment-value--below'
+    }
+
+    return 'character-card__equipment-value'
+  }
 
   return (
     <main className="character-details-page">
       <Link to="/" className="character-details-page__back-link">Volver al listado</Link>
-
+{console.log(character)}
       {isLoading && <p className="character-details-page__status">Cargando personaje...</p>}
 
       {!isLoading && errorMessage && (
@@ -105,8 +146,33 @@ function CharacterDetailsPage() {
           {(primaryProfessions.length > 0 || secondaryProfessions.length > 0) && (
             <section className="character-card__professions" aria-label="Profesiones del personaje">
               <h3>Profesiones</h3>
-              {renderProfessionGroup('Primarias', primaryProfessions)}
-              {renderProfessionGroup('Secundarias', secondaryProfessions)}
+              <div className="character-card__professions-columns">
+                {renderProfessionGroup('Primarias', primaryProfessions)}
+                {renderProfessionGroup('Secundarias', secondaryProfessions)}
+              </div>
+            </section>
+          )}
+
+          {visibleEquipment.length > 0 && (
+            <section className="character-card__equipment" aria-label="Equipamiento del personaje">
+              <h3>Equipamiento</h3>
+              <div className="character-card__equipment-columns">
+                {equipmentColumns.map((column, columnIndex) => (
+                  <ul key={`equipment-column-${columnIndex}`} className="character-card__equipment-list">
+                    {column.map((slotName) => {
+                      const slot = equipmentByName[slotName.toLowerCase()]
+                      if (!slot) return null
+
+                      return (
+                        <li key={slot.name} className="character-card__equipment-item">
+                          <span>{slot.name}</span>
+                          <strong className={getEquipmentValueClassName(slot.value)}>{slot.value}</strong>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                ))}
+              </div>
             </section>
           )}
         </article>
