@@ -144,7 +144,7 @@ function Characters() {
                 </div>
               </header>
 
-              <p className="character-preview__meta">{character.className} · {character.race}</p>
+              <p className="character-preview__meta">{character.race} · {character.className}</p>
 
               {professionNames.length > 0 && (
                 <ul className="character-preview__professions" aria-label="Profesiones">

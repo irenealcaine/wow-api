@@ -1,0 +1,23 @@
+{
+  "name": "WoW API - Explorador de Personajes",
+  "short_name": "WoW API",
+  "description": "Explora personajes de World of Warcraft con filtros y detalles.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "/wow.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/wow.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
