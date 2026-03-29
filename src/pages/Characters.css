@@ -98,6 +98,12 @@
   gap: 0.35rem;
 }
 
+.character-preview__stats-badges img {
+  height: 24px;
+  width: auto;
+  object-fit: cover;
+}
+
 .character-preview__badge {
   color: var(--accent-blue-soft);
   font-size: 0.78rem;

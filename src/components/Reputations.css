@@ -1,0 +1,76 @@
+.reputations {
+  display: grid;
+  gap: 1rem;
+}
+
+.reputations h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.reputations__columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 0.8rem;
+}
+
+.reputations__column {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.reputations__item {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.reputations__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.reputations__name {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.reputations__standing {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--accent-blue-soft);
+}
+
+.reputations__status {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.reputations__status--error {
+  color: var(--accent-pink-soft);
+}
+
+.reputations__empty-item {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 980px) {
+  .reputations__columns {
+    grid-template-columns: 1fr;
+  }
+}

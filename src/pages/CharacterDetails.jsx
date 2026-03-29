@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProgressBar from '../components/ProgressBar'
+import Reputations from '../components/Reputations'
 import { supabase } from '../lib/supabase'
 import './CharacterDetails.css'
 
@@ -116,6 +117,7 @@ function CharacterDetailsPage() {
       {!isLoading && !errorMessage && character && (
         <article className="character-card">
           <header className="character-card__header">
+            <img src={character.media[0]?.value} alt={`${character.name} thumbnail`} className='character-card_faction_icon'/>
             <h2>{character.name} {character.active_title}</h2>
             <span className="character-card__level">Nivel {character.level}</span>
           </header>
@@ -152,6 +154,8 @@ function CharacterDetailsPage() {
               </div>
             </section>
           )}
+
+          <Reputations />
 
           {visibleEquipment.length > 0 && (
             <section className="character-card__equipment" aria-label="Equipamiento del personaje">

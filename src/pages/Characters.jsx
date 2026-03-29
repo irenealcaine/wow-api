@@ -3,6 +3,9 @@ import { supabase } from '../lib/supabase'
 import { Link } from 'react-router-dom'
 import CharacterFilters from '../components/CharacterFilters'
 import './Characters.css'
+import horde from '../assets/HordeLogo.png'
+import alliance from '../assets/AllianceLogo.webp'
+import Reputations from '../components/Reputations'
 
 const EMPTY = ''
 const EXPANSION_KEYWORD = 'midnight'
@@ -137,10 +140,12 @@ function Characters() {
           return (
             <Link to={`/characters/${character.id}`} key={character.id} className="character-preview">
               <header className="character-preview__header">
+                  
                 <h2>{character.name}</h2>
                 <div className="character-preview__stats-badges">
                   <span className="character-preview__badge character-preview__badge--level">Nivel {character.level}</span>
                   <span className="character-preview__badge character-preview__badge--ilvl">Item Level {character.average_item_level}</span>
+                  <img src={character.faction === 'Horde' ? horde : alliance} alt={`${character.faction} thumbnail`}/>
                 </div>
               </header>
 
@@ -158,6 +163,9 @@ function Characters() {
             </Link>
           )
         })}
+      </section>
+      <section>
+        <Reputations />
       </section>
     </main>
   )
