@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProgressBar from '../components/ProgressBar'
-import Reputations from '../components/Reputations'
 import { supabase } from '../lib/supabase'
 import './CharacterDetails.css'
 
