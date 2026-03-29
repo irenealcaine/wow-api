@@ -155,8 +155,6 @@ function CharacterDetailsPage() {
             </section>
           )}
 
-          <Reputations />
-
           {visibleEquipment.length > 0 && (
             <section className="character-card__equipment" aria-label="Equipamiento del personaje">
               <h3>Equipamiento</h3>
