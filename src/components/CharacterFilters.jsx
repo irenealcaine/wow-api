@@ -7,28 +7,28 @@ function CharacterFilters({ filters, options, onChange, onReset, hasActiveFilter
       <input
         className="characters-filters__input"
         type="search"
-        placeholder="Buscar por nombre..."
+        placeholder="Shearch by name..."
         value={filters.name}
         onChange={onChange('name')}
       />
 
       <div className="characters-filters__row">
         <select className="characters-filters__select" value={filters.className} onChange={onChange('className')}>
-          <option value="">Todas las clases</option>
+          <option value="">All classes</option>
           {options.classes.map((characterClass) => (
             <option key={characterClass} value={characterClass}>{characterClass}</option>
           ))}
         </select>
 
         <select className="characters-filters__select" value={filters.race} onChange={onChange('race')}>
-          <option value="">Todas las razas</option>
+          <option value="">All races</option>
           {options.races.map((race) => (
             <option key={race} value={race}>{race}</option>
           ))}
         </select>
 
         <select className="characters-filters__select" value={filters.profession} onChange={onChange('profession')}>
-          <option value="">Todas las profesiones</option>
+          <option value="">All professions</option>
           {options.professions.map((profession) => (
             <option key={profession} value={profession}>{profession}</option>
           ))}
@@ -37,20 +37,20 @@ function CharacterFilters({ filters, options, onChange, onReset, hasActiveFilter
 
       <div className="characters-filters__row">
         <select className="characters-filters__select" value={filters.sortLevel} onChange={onChange('sortLevel')}>
-          <option value="">Ordenar por nivel</option>
-          <option value="asc">Nivel ascendente</option>
-          <option value="desc">Nivel descendente</option>
+          <option value="">Sort by level</option>
+          <option value="asc">Level ascending</option>
+          <option value="desc">Level descending</option>
         </select>
 
         <select className="characters-filters__select" value={filters.sortIlvl} onChange={onChange('sortIlvl')}>
-          <option value="">Ordenar por item level</option>
-          <option value="asc">Item level ascendente</option>
-          <option value="desc">Item level descendente</option>
+          <option value="">Sort by item level</option>
+          <option value="asc">Item level ascending</option>
+          <option value="desc">Item level descending</option>
         </select>
 
         {hasActiveFilters && (
           <button className="characters-filters__reset" type="button" onClick={onReset}>
-            Limpiar filtros
+            Clear filters
           </button>
         )}
       </div>
