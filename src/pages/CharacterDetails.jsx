@@ -34,14 +34,17 @@ function CharacterDetailsPage() {
     fetchCharacter()
   }, [id])
 
-  const renderProfessionGroup = (title, list) => {
-    const professionsWithTiers = list
+  const getProfessionsWithMidnightTiers = (list) =>
+    list
       .map((profession) => ({
         ...profession,
         tiers:
           profession.tiers?.filter((tier) => tier.expansion?.toLowerCase().includes('midnight')) ?? [],
       }))
       .filter((profession) => profession.tiers.length > 0)
+
+  const renderProfessionGroup = (title, list) => {
+    const professionsWithTiers = getProfessionsWithMidnightTiers(list)
 
     if (!professionsWithTiers.length) return null
 
@@ -68,6 +71,8 @@ function CharacterDetailsPage() {
 
   const primaryProfessions = character?.professions?.primaries ?? []
   const secondaryProfessions = character?.professions?.secondaries ?? []
+  const hasVisiblePrimaryProfessions = getProfessionsWithMidnightTiers(primaryProfessions).length > 0
+  const hasVisibleSecondaryProfessions = getProfessionsWithMidnightTiers(secondaryProfessions).length > 0
   const equipment = Array.isArray(character?.equipment) ? character.equipment : []
   const averageItemLevel = Number(character?.average_item_level)
   const visibleEquipment = equipment.filter((slot) => slot.name?.toLowerCase() !== 'tabard')
@@ -106,7 +111,7 @@ function CharacterDetailsPage() {
   return (
     <main className="character-details-page">
       <Link to="/" className="character-details-page__back-link">Back to list</Link>
-{console.log(character)}
+      {/* {console.log(character)} */}
       {isLoading && <p className="character-details-page__status">Loading character...</p>}
 
       {!isLoading && errorMessage && (
@@ -118,7 +123,7 @@ function CharacterDetailsPage() {
           <header className="character-card__header">
             <img src={character.media[0]?.value} alt={`${character.name} thumbnail`} className='character-card_faction_icon'/>
             <h2>{character.name} {character.active_title}</h2>
-            <span className="character-card__level">Nivel {character.level}</span>
+            <span className="character-card__level">Level {character.level}</span>
           </header>
 
           <dl className="character-card__stats">
@@ -144,7 +149,7 @@ function CharacterDetailsPage() {
             </div>
           </dl>
 
-          {(primaryProfessions.length > 0 || secondaryProfessions.length > 0) && (
+          {(hasVisiblePrimaryProfessions || hasVisibleSecondaryProfessions) && (
             <section className="character-card__professions" aria-label="Character Professions">
               <h3>Professions</h3>
               <div className="character-card__professions-columns">
