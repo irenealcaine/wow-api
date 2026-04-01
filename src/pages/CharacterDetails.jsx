@@ -22,7 +22,7 @@ function CharacterDetailsPage() {
         .single()
 
       if (error) {
-        setErrorMessage('No se pudo cargar el personaje.')
+        setErrorMessage("Can't load character")
         setCharacter(null)
       } else {
         setCharacter(data)
@@ -105,9 +105,9 @@ function CharacterDetailsPage() {
 
   return (
     <main className="character-details-page">
-      <Link to="/" className="character-details-page__back-link">Volver al listado</Link>
+      <Link to="/" className="character-details-page__back-link">Back to list</Link>
 {console.log(character)}
-      {isLoading && <p className="character-details-page__status">Cargando personaje...</p>}
+      {isLoading && <p className="character-details-page__status">Loading character...</p>}
 
       {!isLoading && errorMessage && (
         <p className="character-details-page__status character-details-page__status--error">{errorMessage}</p>
@@ -123,19 +123,19 @@ function CharacterDetailsPage() {
 
           <dl className="character-card__stats">
             <div>
-              <dt>Reino</dt>
+              <dt>Realm</dt>
               <dd>{character.realm}</dd>
             </div>
             <div>
-              <dt>Facción</dt>
+              <dt>Faction</dt>
               <dd>{character.faction}</dd>
             </div>
             <div>
-              <dt>Raza</dt>
+              <dt>Race</dt>
               <dd>{character.race}</dd>
             </div>
             <div>
-              <dt>Clase</dt>
+              <dt>Class</dt>
               <dd>{character.className} {character.active_spec}</dd>
             </div>
             <div>
@@ -145,18 +145,18 @@ function CharacterDetailsPage() {
           </dl>
 
           {(primaryProfessions.length > 0 || secondaryProfessions.length > 0) && (
-            <section className="character-card__professions" aria-label="Profesiones del personaje">
-              <h3>Profesiones</h3>
+            <section className="character-card__professions" aria-label="Character Professions">
+              <h3>Professions</h3>
               <div className="character-card__professions-columns">
-                {renderProfessionGroup('Primarias', primaryProfessions)}
-                {renderProfessionGroup('Secundarias', secondaryProfessions)}
+                {renderProfessionGroup('Primary', primaryProfessions)}
+                {renderProfessionGroup('Secondary', secondaryProfessions)}
               </div>
             </section>
           )}
 
           {visibleEquipment.length > 0 && (
-            <section className="character-card__equipment" aria-label="Equipamiento del personaje">
-              <h3>Equipamiento</h3>
+            <section className="character-card__equipment" aria-label="Character Equipment">
+              <h3>Equipment</h3>
               <div className="character-card__equipment-columns">
                 {equipmentColumns.map((column, columnIndex) => (
                   <ul key={`equipment-column-${columnIndex}`} className="character-card__equipment-list">

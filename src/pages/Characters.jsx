@@ -106,7 +106,7 @@ function Characters() {
   return (
     <main className="characters-page">
       <h1>Characters</h1>
-      <p className="characters-page__subtitle">Tus personajes destacados de Azeroth.</p>
+      <p className="characters-page__subtitle">For Azeroth</p>
 
       <button
         type="button"
@@ -115,7 +115,7 @@ function Characters() {
         aria-expanded={isFiltersVisible}
         aria-controls="characters-filters-panel"
       >
-        {isFiltersVisible ? 'Ocultar filtros' : 'Mostrar filtros'}
+        {isFiltersVisible ? 'Hide filters' : 'Show filters'}
       </button>
 
       {isFiltersVisible && (
@@ -132,7 +132,7 @@ function Characters() {
 
       <section className="characters-grid" aria-label="Listado de personajes">
         {filtered.length === 0 && (
-          <p className="characters-page__empty">No hay personajes que coincidan con los filtros.</p>
+          <p className="characters-page__empty">No characters match the filters.</p>
         )}
         {filtered.map((character) => {
           const professionNames = getProfessionNamesWithExpansionKeyword(character)
@@ -143,7 +143,7 @@ function Characters() {
                   
                 <h2>{character.name}</h2>
                 <div className="character-preview__stats-badges">
-                  <span className="character-preview__badge character-preview__badge--level">Nivel {character.level}</span>
+                  <span className="character-preview__badge character-preview__badge--level">Level {character.level}</span>
                   <span className="character-preview__badge character-preview__badge--ilvl">Item Level {character.average_item_level}</span>
                   <img src={character.faction === 'Horde' ? horde : alliance} alt={`${character.faction} thumbnail`}/>
                 </div>
@@ -152,7 +152,7 @@ function Characters() {
               <p className="character-preview__meta">{character.race} · {character.className}</p>
 
               {professionNames.length > 0 && (
-                <ul className="character-preview__professions" aria-label="Profesiones">
+                <ul className="character-preview__professions" aria-label="Professions">
                   {professionNames.map((professionName) => (
                     <li key={`${character.id}-${professionName}`} className="character-preview__profession-tag">
                       {professionName}

@@ -28,7 +28,7 @@ function Reputations() {
         .order('id', { ascending: false })
 
       if (error) {
-        setErrorMessage('No se pudieron cargar las reputaciones.')
+        setErrorMessage("Can't load reputations")
         setReputations([])
       } else {
         const latestByFaction = new Map()
@@ -50,17 +50,17 @@ function Reputations() {
 
   if (isLoading) {
     return (
-      <section className="reputations" aria-label="Reputaciones del personaje">
-        <h3>Reputaciones</h3>
-        <p className="reputations__status">Cargando reputaciones...</p>
+      <section className="reputations" aria-label="Character Reputations">
+        <h3>Reputations</h3>
+        <p className="reputations__status">Loading reputations...</p>
       </section>
     )
   }
 
   if (errorMessage) {
     return (
-      <section className="reputations" aria-label="Reputaciones del personaje">
-        <h3>Reputaciones</h3>
+      <section className="reputations" aria-label="Character Reputations">
+        <h3>Reputations</h3>
         <p className="reputations__status reputations__status--error">{errorMessage}</p>
       </section>
     )
@@ -68,9 +68,9 @@ function Reputations() {
 
   if (reputations.length === 0) {
     return (
-      <section className="reputations" aria-label="Reputaciones del personaje">
-        <h3>Reputaciones</h3>
-        <p className="reputations__status">No hay reputaciones disponibles.</p>
+      <section className="reputations" aria-label="Character Reputations">
+        <h3>Reputations</h3>
+        <p className="reputations__status">No reputations available.</p>
       </section>
     )
   }
@@ -80,8 +80,8 @@ function Reputations() {
   )
 
   return (
-    <section className="reputations" aria-label="Reputaciones del personaje">
-      <h3>Reputaciones</h3>
+    <section className="reputations" aria-label="Character Reputations">
+      <h3>Reputations</h3>
 
       <div className="reputations__columns">
         {REPUTATION_COLUMNS.map((column, columnIndex) => (
@@ -99,7 +99,7 @@ function Reputations() {
                   {reputation ? (
                     <ProgressBar value={Number(reputation.value) || 0} max={Number(reputation.max) || 1} />
                   ) : (
-                    <p className="reputations__empty-item">Sin datos</p>
+                    <p className="reputations__empty-item">No data</p>
                   )}
                 </li>
               )
