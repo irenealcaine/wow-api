@@ -9,7 +9,7 @@ import Reputations from '../components/Reputations'
 
 const EMPTY = ''
 const EXPANSION_KEYWORD = 'midnight'
-const DEFAULT_SORT_LEVEL = 'desc'
+const DEFAULT_SORT_ILEVEL = 'desc'
 
 const hasExpansionKeywordTier = (profession) =>
   profession.tiers?.some((tier) => tier.expansion?.toLowerCase().includes(EXPANSION_KEYWORD)) ?? false
@@ -31,8 +31,8 @@ function Characters() {
     className: EMPTY,
     race: EMPTY,
     profession: EMPTY,
-    sortLevel: DEFAULT_SORT_LEVEL,
-    sortIlvl: EMPTY,
+    sortLevel: EMPTY,
+    sortIlvl: DEFAULT_SORT_ILEVEL,
   })
 
   useEffect(() => {
@@ -98,7 +98,7 @@ function Characters() {
 
   const resetFilters = () => setFilters({
     name: EMPTY, className: EMPTY, race: EMPTY,
-    profession: EMPTY, sortLevel: DEFAULT_SORT_LEVEL, sortIlvl: EMPTY,
+    profession: EMPTY, sortLevel: EMPTY, sortIlvl: DEFAULT_SORT_ILEVEL,
   })
 
   const hasActiveFilters = Object.values(filters).some((v) => v !== EMPTY)

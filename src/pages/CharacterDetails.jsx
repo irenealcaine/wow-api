@@ -79,7 +79,7 @@ function CharacterDetailsPage() {
     .filter((value) => Number.isFinite(value))
   const lowestEquipmentValue = equipmentValues.length > 0 ? Math.min(...equipmentValues) : null
   const equipmentColumns = [
-    ['Head', 'Shoulders', 'Chest', 'Waist', 'Legs', 'Feet', 'Wrist', 'Hands'],
+    ['Head', 'Shoulders','Back', 'Chest', 'Waist', 'Legs', 'Feet', 'Wrist', 'Hands'],
     ['Neck', 'Ring 1', 'Ring 2', 'Trinket 1', 'Trinket 2'],
     ['Main Hand', 'Off Hand'],
   ]
