@@ -144,8 +144,8 @@ function Characters() {
                   
                 <h2>{character.name}</h2>
                 <div className="character-preview__stats-badges">
-                  <span className="character-preview__badge character-preview__badge--level">Level {character.level}</span>
-                  <span className="character-preview__badge character-preview__badge--ilvl">Item Level {character.average_item_level}</span>
+                  <span className="character-preview__badge character-preview__badge--level">lvl {character.level}</span>
+                  <span className="character-preview__badge character-preview__badge--ilvl">ilvl {character.average_item_level}</span>
                   <img src={character.faction === 'Horde' ? horde : alliance} alt={`${character.faction} thumbnail`}/>
                 </div>
               </header>

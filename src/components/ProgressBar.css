@@ -1,6 +1,7 @@
 .progress {
   display: grid;
   gap: 0.35rem;
+  width: 100%;
 }
 
 .progress__meta {

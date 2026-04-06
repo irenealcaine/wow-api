@@ -121,28 +121,19 @@ function CharacterDetailsPage() {
       {!isLoading && !errorMessage && character && (
         <article className="character-card">
           <header className="character-card__header">
-            <img src={character.media[0]?.value} alt={`${character.name} thumbnail`} className='character-card_faction_icon'/>
-            <h2>{character.name} {character.active_title}</h2>
-            <span className="character-card__level">Level {character.level}</span>
+            <img src={character.media[0]?.value} alt={`${character.name} thumbnail`} className='character-card__avatar'/>
+            <div className="character-card__header-info">
+              <div className="character-card__header-name">
+                <h2>{character.name}</h2>
+                <span className="character-card__level">Level {character.level}</span>
+              </div>
+              <p className="character-card__subtitle">{character.race}</p>
+              <p className="character-card__subtitle">{character.className} · {character.active_spec}</p>
+              {character.active_title && <span className="character-card__active-title">{character.active_title}</span>}
+            </div>
           </header>
 
           <dl className="character-card__stats">
-            <div>
-              <dt>Realm</dt>
-              <dd>{character.realm}</dd>
-            </div>
-            <div>
-              <dt>Faction</dt>
-              <dd>{character.faction}</dd>
-            </div>
-            <div>
-              <dt>Race</dt>
-              <dd>{character.race}</dd>
-            </div>
-            <div>
-              <dt>Class</dt>
-              <dd>{character.className} {character.active_spec}</dd>
-            </div>
             <div>
               <dt>Item Level</dt>
               <dd>{character.average_item_level}</dd>
