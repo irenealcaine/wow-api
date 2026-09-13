@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import ProgressBar from './ProgressBar'
 import './Reputations.css'
-import { supabase } from '../lib/supabase'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 
 const REPUTATION_COLUMNS = [
   ['Silvermoon Court', 'Amani Tribe', "Hara'ti", 'The Singularity'],
@@ -21,25 +22,25 @@ function Reputations() {
       setIsLoading(true)
       setErrorMessage('')
 
-      const { data, error } = await supabase
-        .from('reputations')
-        .select('id, faction, standing, value, max')
-        .in('faction', TARGET_FACTIONS)
-        .order('id', { ascending: false })
+      try {
+        const querySnapshot = await getDocs(collection(db, 'reputations'))
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
 
-      if (error) {
-        setErrorMessage("Can't load reputations")
-        setReputations([])
-      } else {
         const latestByFaction = new Map()
 
-        ;(Array.isArray(data) ? data : []).forEach((reputation) => {
-          if (!latestByFaction.has(reputation.faction)) {
-            latestByFaction.set(reputation.faction, reputation)
-          }
-        })
+        ;(Array.isArray(data) ? data : [])
+          .filter((reputation) => TARGET_FACTIONS.includes(reputation.faction))
+          .sort((a, b) => Number(b.id) - Number(a.id))
+          .forEach((reputation) => {
+            if (!latestByFaction.has(reputation.faction)) {
+              latestByFaction.set(reputation.faction, reputation)
+            }
+          })
 
         setReputations(Array.from(latestByFaction.values()))
+      } catch {
+        setErrorMessage("Can't load reputations")
+        setReputations([])
       }
 
       setIsLoading(false)

@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .env
+
+.agents/
+skills-lock.json
+
+src/n8n-workflow/

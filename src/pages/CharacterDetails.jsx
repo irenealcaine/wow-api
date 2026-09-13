@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProgressBar from '../components/ProgressBar'
-import { supabase } from '../lib/supabase'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import './CharacterDetails.css'
 
 function CharacterDetailsPage() {
@@ -15,17 +16,13 @@ function CharacterDetailsPage() {
       setIsLoading(true)
       setErrorMessage('')
 
-      const { data, error } = await supabase
-        .from('characters')
-        .select('*')
-        .eq('id', id)
-        .single()
+      const documentSnapshot = await getDoc(doc(db, 'characters', id))
 
-      if (error) {
+      if (documentSnapshot.exists()) {
+        setCharacter({ id: documentSnapshot.id, ...documentSnapshot.data() })
+      } else {
         setErrorMessage("Can't load character")
         setCharacter(null)
-      } else {
-        setCharacter(data)
       }
 
       setIsLoading(false)

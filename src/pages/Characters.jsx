@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { supabase } from '../lib/supabase'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import { Link } from 'react-router-dom'
 import CharacterFilters from '../components/CharacterFilters'
 import './Characters.css'
@@ -38,11 +39,10 @@ function Characters() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
-        .from('characters')
-        .select('*')
+      const querySnapshot = await getDocs(collection(db, 'characters'))
+      const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
 
-      if (!error) setCharacters(data)
+      setCharacters(data)
     }
 
     fetchData()
