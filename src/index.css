@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Spectral', Georgia, 'Times New Roman', serif;
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -7,42 +7,63 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --bg-main: #07091280;
-  --bg-card: #0e1020;
-  --bg-card-hover: #141728;
-  --border: #1c2040;
-  --border-active: #2a2f5a;
-  --accent-blue: #3a86ff;
-  --accent-pink: #f72585;
-  --accent-blue-soft: #6ea8fe;
-  --accent-pink-soft: #fa6bbd;
-  --text-primary: #e4eaf8;
-  --text-secondary: #7a8db5;
-  --text-muted: #4a5a80;
+  --bg-main: #0a120e;
+  --bg-card: #101c16;
+  --bg-card-hover: #16261d;
+  --border: #21392c;
+  --border-active: #2f5140;
+  --accent-primary: #34d399;
+  --accent-primary-soft: #6ee7be;
+  --accent-secondary: #d9b45b;
+  --accent-secondary-soft: #e8cf95;
+  --accent-bronze: #b08d5c;
+  --text-primary: #e6f0e9;
+  --text-secondary: #93ab9c;
+  --text-muted: #5f7466;
 
   color-scheme: dark;
-  background: #07091280;
+  background: var(--bg-main);
 }
 
 * {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Cinzel', Georgia, serif;
+  letter-spacing: 0.02em;
+}
+
 html {
-  background: #070912;
+  background: var(--bg-main);
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background: radial-gradient(ellipse 80% 60% at 20% -10%, rgba(58, 134, 255, 0.15) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 50% at 80% 110%, rgba(247, 37, 133, 0.12) 0%, transparent 60%),
-              #070912;
+  background: radial-gradient(ellipse 80% 60% at 20% -10%, rgba(52, 211, 153, 0.1) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 80% 110%, rgba(217, 180, 91, 0.08) 0%, transparent 60%),
+              var(--bg-main);
   min-height: 100vh;
   color: var(--text-primary);
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 #root {
+  position: relative;
+  z-index: 2;
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1rem 3rem;

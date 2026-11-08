@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ProgressBar from './ProgressBar'
+import Skeleton from './Skeleton'
 import './Reputations.css'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase'
@@ -53,7 +54,11 @@ function Reputations() {
     return (
       <section className="reputations" aria-label="Character Reputations">
         <h3>Reputations</h3>
-        <p className="reputations__status">Loading reputations...</p>
+        <div className="reputations__columns" role="status" aria-label="Loading reputations">
+          {Array.from({ length: 6 }, (_, index) => (
+            <Skeleton key={`skeleton-${index}`} style={{ height: '3.2rem' }} />
+          ))}
+        </div>
       </section>
     )
   }

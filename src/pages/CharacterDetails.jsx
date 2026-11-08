@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProgressBar from '../components/ProgressBar'
+import CharacterDetailsForever from '../components/CharacterDetailsForever'
+import Skeleton from '../components/Skeleton'
+import useCountUp from '../hooks/useCountUp'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import './CharacterDetails.css'
@@ -10,6 +13,8 @@ function CharacterDetailsPage() {
   const [character, setCharacter] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const level = useCountUp(character?.level)
+  const itemLevel = useCountUp(character?.average_item_level)
 
   useEffect(() => {
     const fetchCharacter = async () => {
@@ -109,20 +114,38 @@ function CharacterDetailsPage() {
     <main className="character-details-page">
       <Link to="/" className="character-details-page__back-link">Back to list</Link>
       {/* {console.log(character)} */}
-      {isLoading && <p className="character-details-page__status">Loading character...</p>}
+      {isLoading && (
+        <article className="character-card character-details-page__skeleton" role="status" aria-label="Loading character">
+          <div className="character-details-page__skeleton-header">
+            <Skeleton className="character-details-page__skeleton-avatar" />
+            <div className="character-details-page__skeleton-lines">
+              <Skeleton style={{ height: '1.35rem', width: '45%' }} />
+              <Skeleton style={{ height: '0.9rem', width: '30%' }} />
+              <Skeleton style={{ height: '0.9rem', width: '35%' }} />
+            </div>
+          </div>
+          <Skeleton style={{ height: '2.4rem' }} />
+          <Skeleton style={{ height: '7rem' }} />
+          <Skeleton style={{ height: '9rem' }} />
+        </article>
+      )}
 
       {!isLoading && errorMessage && (
         <p className="character-details-page__status character-details-page__status--error">{errorMessage}</p>
       )}
 
-      {!isLoading && !errorMessage && character && (
-        <article className="character-card">
+      {!isLoading && !errorMessage && character?.game === 'forever' && (
+        <CharacterDetailsForever character={character} />
+      )}
+
+      {!isLoading && !errorMessage && character && character.game !== 'forever' && (
+        <article className={`character-card ${character.faction === 'Horde' ? 'character-card--horde' : 'character-card--alliance'}`}>
           <header className="character-card__header">
             <img src={character.media[0]?.value} alt={`${character.name} thumbnail`} className='character-card__avatar'/>
             <div className="character-card__header-info">
               <div className="character-card__header-name">
                 <h2>{character.name}</h2>
-                <span className="character-card__level">Level {character.level}</span>
+                <span className="character-card__level">Level {level}</span>
               </div>
               <p className="character-card__subtitle">{character.race}</p>
               <p className="character-card__subtitle">{character.className} · {character.active_spec}</p>
@@ -133,7 +156,7 @@ function CharacterDetailsPage() {
           <dl className="character-card__stats">
             <div>
               <dt>Item Level</dt>
-              <dd>{character.average_item_level}</dd>
+              <dd>{itemLevel}</dd>
             </div>
           </dl>
 

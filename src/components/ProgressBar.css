@@ -18,7 +18,7 @@
 }
 
 .progress__value {
-  color: var(--accent-blue-soft);
+  color: var(--accent-primary-soft);
   font-weight: 700;
 }
 
@@ -32,8 +32,18 @@
 
 .progress__fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-pink) 100%);
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
   border-radius: 999px;
-  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 8px rgba(58, 134, 255, 0.4);
+  transform-origin: left;
+  animation: progress-grow 600ms ease both;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.35);
+}
+
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }

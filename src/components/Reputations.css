@@ -6,6 +6,7 @@
 .reputations h3 {
   margin: 0;
   font-size: 1.05rem;
+  color: var(--accent-primary-soft);
 }
 
 .reputations__columns {
@@ -50,7 +51,7 @@
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  color: var(--accent-blue-soft);
+  color: var(--accent-primary-soft);
 }
 
 .reputations__status {
@@ -60,7 +61,7 @@
 }
 
 .reputations__status--error {
-  color: var(--accent-pink-soft);
+  color: var(--accent-secondary-soft);
 }
 
 .reputations__empty-item {
