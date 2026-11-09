@@ -4,14 +4,6 @@ import './CharacterFilters.css'
 function CharacterFilters({ filters, options, onChange, onReset, hasActiveFilters }) {
   return (
     <div className="characters-filters">
-      <input
-        className="characters-filters__input"
-        type="search"
-        placeholder="Shearch by name..."
-        value={filters.name}
-        onChange={onChange('name')}
-      />
-
       <div className="characters-filters__row">
         <select className="characters-filters__select" value={filters.className} onChange={onChange('className')}>
           <option value="">All classes</option>

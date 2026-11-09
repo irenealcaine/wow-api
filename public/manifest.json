@@ -4,8 +4,8 @@
   "description": "Explora personajes de World of Warcraft con filtros y detalles.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#d4af37",
+  "background_color": "#101113",
+  "theme_color": "#101113",
   "icons": [
     {
       "src": "/wow.png",

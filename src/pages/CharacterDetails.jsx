@@ -145,7 +145,7 @@ function CharacterDetailsPage() {
             <div className="character-card__header-info">
               <div className="character-card__header-name">
                 <h2>{character.name}</h2>
-                <span className="character-card__level">Level {level}</span>
+                <span className="character-card__faction">{character.faction}</span>
               </div>
               <p className="character-card__subtitle">{character.race}</p>
               <p className="character-card__subtitle">{character.className} · {character.active_spec}</p>
@@ -155,9 +155,19 @@ function CharacterDetailsPage() {
 
           <dl className="character-card__stats">
             <div>
+              <dt>Level</dt>
+              <dd>{level}</dd>
+            </div>
+            <div>
               <dt>Item Level</dt>
               <dd>{itemLevel}</dd>
             </div>
+            {character.active_spec && (
+              <div>
+                <dt>Spec</dt>
+                <dd>{character.active_spec}</dd>
+              </div>
+            )}
           </dl>
 
           {(hasVisiblePrimaryProfessions || hasVisibleSecondaryProfessions) && (

@@ -163,15 +163,43 @@ function Characters() {
       <h1>Characters</h1>
       <p className="characters-page__subtitle">For Azeroth</p>
 
-      <button
-        type="button"
-        className="characters-page__filters-toggle"
-        onClick={() => setIsFiltersVisible((prev) => !prev)}
-        aria-expanded={isFiltersVisible}
-        aria-controls="characters-filters-panel"
-      >
-        {isFiltersVisible ? 'Hide filters' : 'Show filters'}
-      </button>
+      <div className="characters-page__toolbar">
+        <input
+          className="characters-page__search"
+          type="search"
+          placeholder="Search by name..."
+          value={filters.name}
+          onChange={set('name')}
+          aria-label="Search by name"
+        />
+
+        <div className="characters-page__tabs" role="tablist" aria-label="Game">
+          {gameTabs.map((tab) => (
+            <button
+              key={tab.value}
+              type="button"
+              role="tab"
+              id={`game-tab-${tab.value}`}
+              aria-selected={activeGame === tab.value}
+              aria-controls="characters-grid-panel"
+              className={`characters-page__tab${activeGame === tab.value ? ' characters-page__tab--active' : ''}`}
+              onClick={() => setActiveGame(tab.value)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="characters-page__filters-toggle"
+          onClick={() => setIsFiltersVisible((prev) => !prev)}
+          aria-expanded={isFiltersVisible}
+          aria-controls="characters-filters-panel"
+        >
+          {isFiltersVisible ? 'Hide filters' : 'Filters'}
+        </button>
+      </div>
 
       {isFiltersVisible && (
         <div id="characters-filters-panel">
@@ -185,22 +213,11 @@ function Characters() {
         </div>
       )}
 
-      <div className="characters-page__tabs" role="tablist" aria-label="Game">
-        {gameTabs.map((tab) => (
-          <button
-            key={tab.value}
-            type="button"
-            role="tab"
-            id={`game-tab-${tab.value}`}
-            aria-selected={activeGame === tab.value}
-            aria-controls="characters-grid-panel"
-            className={`characters-page__tab${activeGame === tab.value ? ' characters-page__tab--active' : ''}`}
-            onClick={() => setActiveGame(tab.value)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      {!isLoading && (
+        <p className="characters-page__count" aria-live="polite">
+          {filtered.length} {filtered.length === 1 ? 'character' : 'characters'}
+        </p>
+      )}
 
       <section
         id="characters-grid-panel"
@@ -212,9 +229,12 @@ function Characters() {
       >
         {isLoading && Array.from({ length: 6 }, (_, index) => (
           <div key={`skeleton-${index}`} className="character-preview character-preview--skeleton">
-            <Skeleton style={{ height: '1.25rem', width: '55%' }} />
-            <Skeleton style={{ height: '0.9rem', width: '40%' }} />
-            <Skeleton style={{ height: '0.75rem', width: '65%' }} />
+            <Skeleton className="character-preview__skeleton-media" />
+            <div className="character-preview__body">
+              <Skeleton style={{ height: '1.25rem', width: '55%' }} />
+              <Skeleton style={{ height: '0.9rem', width: '40%' }} />
+              <Skeleton style={{ height: '0.75rem', width: '65%' }} />
+            </div>
           </div>
         ))}
         {!isLoading && filtered.length === 0 && (
@@ -232,31 +252,33 @@ function Characters() {
               className={`character-preview ${character.faction === 'Horde' ? 'character-preview--horde' : 'character-preview--alliance'}`}
             >
               {renderImage && (
-                <div className="character-preview__render">
+                <div className="character-preview__media">
                   <img src={renderImage} alt="" loading="lazy" />
                 </div>
               )}
-              <header className="character-preview__header">
-                  
-                <h2>{character.name}</h2>
-                <div className="character-preview__stats-badges">
-                  <span className="character-preview__badge character-preview__badge--level">lvl {character.level}</span>
-                  <span className="character-preview__badge character-preview__badge--ilvl">ilvl {character.average_item_level}</span>
-                  <img src={character.faction === 'Horde' ? horde : alliance} alt={`${character.faction} thumbnail`}/>
-                </div>
-              </header>
 
-              <p className="character-preview__meta">{character.race} · {character.className}</p>
+              <div className="character-preview__body">
+                <header className="character-preview__header">
+                  <h2>{character.name}</h2>
+                  <div className="character-preview__stats-badges">
+                    <span className="character-preview__badge character-preview__badge--level">lvl {character.level}</span>
+                    <span className="character-preview__badge character-preview__badge--ilvl">ilvl {character.average_item_level}</span>
+                    <img src={character.faction === 'Horde' ? horde : alliance} alt={`${character.faction} thumbnail`}/>
+                  </div>
+                </header>
 
-              {professionNames.length > 0 && (
-                <ul className="character-preview__professions" aria-label="Professions">
-                  {professionNames.map((professionName) => (
-                    <li key={`${character.id}-${professionName}`} className="character-preview__profession-tag">
-                      {professionName}
-                    </li>
-                  ))}
-                </ul>
-              )}
+                <p className="character-preview__meta">{character.race} · {character.className}</p>
+
+                {professionNames.length > 0 && (
+                  <ul className="character-preview__professions" aria-label="Professions">
+                    {professionNames.map((professionName) => (
+                      <li key={`${character.id}-${professionName}`} className="character-preview__profession-tag">
+                        {professionName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </Link>
           )
         })}

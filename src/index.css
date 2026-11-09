@@ -7,19 +7,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --bg-main: #0a120e;
-  --bg-card: #101c16;
-  --bg-card-hover: #16261d;
-  --border: #21392c;
-  --border-active: #2f5140;
-  --accent-primary: #34d399;
-  --accent-primary-soft: #6ee7be;
-  --accent-secondary: #d9b45b;
-  --accent-secondary-soft: #e8cf95;
-  --accent-bronze: #b08d5c;
-  --text-primary: #e6f0e9;
-  --text-secondary: #93ab9c;
-  --text-muted: #5f7466;
+  --bg-main: #101113;
+  --bg-card: #17181b;
+  --bg-card-hover: #202126;
+  --border: #2a2c30;
+  --border-active: #3a3d42;
+  --accent-neutral: #8b8e93;
+  --accent-neutral-soft: #c6c9cd;
+  --text-primary: #e7e9eb;
+  --text-secondary: #a0a3a8;
+  --text-muted: #6d7075;
+
+  --horde: #c8443a;
+  --horde-soft: rgba(200, 68, 58, 0.14);
+  --horde-line: rgba(200, 68, 58, 0.24);
+  --alliance: #4f7dff;
+  --alliance-soft: rgba(79, 125, 255, 0.14);
+  --alliance-line: rgba(79, 125, 255, 0.24);
+
+  --accent-data: #d9a441;
+  --accent-data-bright: #f0d79b;
+  --accent-data-soft: #e6c274;
+  --accent-data-muted: #a88038;
+  --accent-data-glow: rgba(217, 164, 65, 0.3);
 
   color-scheme: dark;
   background: var(--bg-main);
@@ -44,8 +54,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: radial-gradient(ellipse 80% 60% at 20% -10%, rgba(52, 211, 153, 0.1) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 50% at 80% 110%, rgba(217, 180, 91, 0.08) 0%, transparent 60%),
+  background: radial-gradient(ellipse 80% 60% at 20% -10%, rgba(139, 142, 147, 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 50% at 80% 110%, rgba(139, 142, 147, 0.05) 0%, transparent 60%),
               var(--bg-main);
   min-height: 100vh;
   color: var(--text-primary);
@@ -57,20 +67,28 @@ body::before {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 #root {
   position: relative;
   z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1rem 3rem;
+  flex: 1;
 }
 
 @media (max-width: 640px) {
-  #root {
+  .app-main {
     padding: 1.25rem 0.85rem 2rem;
   }
 }

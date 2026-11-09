@@ -93,6 +93,8 @@ function CharacterDetailsForever({ character }) {
   )
   const equipmentValues = Object.values(equipmentByName).map((slot) => Number(slot.value))
   const lowestEquipmentValue = equipmentValues.length > 0 ? Math.min(...equipmentValues) : null
+  const hasProfessions = primaryProfessions.length > 0 || secondaryProfessions.length > 0
+  const hasEquipment = Object.keys(equipmentByName).length > 0
 
   return (
     <article className={`character-card-forever ${character.faction === 'Horde' ? 'character-card-forever--horde' : 'character-card-forever--alliance'}`}>
@@ -103,7 +105,7 @@ function CharacterDetailsForever({ character }) {
         <div className="character-card-forever__header-info">
           <div className="character-card-forever__header-name">
             <h2>{character.name}</h2>
-            <span className="character-card-forever__level">Level {level}</span>
+            <span className="character-card-forever__faction">{character.faction}</span>
           </div>
           <p className="character-card-forever__subtitle">{character.race}</p>
           <p className="character-card-forever__subtitle">{character.className}</p>
@@ -112,12 +114,16 @@ function CharacterDetailsForever({ character }) {
 
       <dl className="character-card-forever__stats">
         <div>
+          <dt>Level</dt>
+          <dd>{level}</dd>
+        </div>
+        <div>
           <dt>Item Level</dt>
           <dd>{itemLevel}</dd>
         </div>
       </dl>
 
-      {(primaryProfessions.length > 0 || secondaryProfessions.length > 0) && (
+      {hasProfessions && (
         <section className="character-card-forever__professions" aria-label="Character Professions">
           <h3>Professions</h3>
           <div className="character-card-forever__columns">
@@ -127,7 +133,7 @@ function CharacterDetailsForever({ character }) {
         </section>
       )}
 
-      {Object.keys(equipmentByName).length > 0 && (
+      {hasEquipment && (
         <section className="character-card-forever__equipment" aria-label="Character Equipment">
           <h3>Equipment</h3>
           <div className="character-card-forever__equipment-columns">
